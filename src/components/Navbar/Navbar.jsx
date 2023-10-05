@@ -1,46 +1,78 @@
 import React, { useState } from 'react';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import { Link } from 'react-router-dom';
-import { SidebarData } from './SidebarData';
 import './Navbar.css';
-import { IconContext } from 'react-icons';
+import {
+  FaTh,
+  FaBars,
+  FaUserAlt,
+  FaRegChartBar,
+  FaCommentAlt,
+  FaShoppingBag,
+  FaThList
+} from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
-import React from 'react';
+export const Navbar = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+  const menuItem = [
+    {
+      path: '/',
+      name: 'Dashboard',
+      icon: <FaTh />
+    },
+    {
+      path: '/about',
+      name: 'About',
+      icon: <FaUserAlt />
+    },
+    {
+      path: '/analytics',
+      name: 'Analytics',
+      icon: <FaRegChartBar />
+    },
+    {
+      path: '/comment',
+      name: 'Comment',
+      icon: <FaCommentAlt />
+    },
+    {
+      path: '/product',
+      name: 'Product',
+      icon: <FaShoppingBag />
+    },
+    {
+      path: '/productList',
+      name: 'Product List',
+      icon: <FaThList />
+    }
+  ];
 
-export function Navbar() {
-    const [sidebar, setSidebar] = useState(false);
-  
-    const showSidebar = () => setSidebar(!sidebar);
-  
-    return (
-      <>
-        <IconContext.Provider value={{ color: '#fff' }}>
-          <div className='navbar'>
-            <Link to='#' className='menu-bars'>
-              <FaIcons.FaBars onClick={showSidebar} />
-            </Link>
+  return (
+    <div className="container">
+      <div style={{ width: isOpen ? '200px' : '50px' }} className="sidebar">
+        <div className="top_section">
+          <h1 style={{ display: isOpen ? 'block' : 'none' }} className="logo">
+            Logo
+          </h1>
+          <div style={{ marginLeft: isOpen ? '50px' : '0px' }} className="bars">
+            <FaBars onClick={toggle} />
           </div>
-          <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-            <ul className='nav-menu-items' onClick={showSidebar}>
-              <li className='navbar-toggle'>
-                <Link to='#' className='menu-bars'>
-                  <AiIcons.AiOutlineClose />
-                </Link>
-              </li>
-              {SidebarData.map((item, index) => {
-                return (
-                  <li key={index} className={item.cName}>
-                    <Link to={item.path}>
-                      {item.icon}
-                      <span>{item.title}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-        </IconContext.Provider>
-      </>
-    );
-  }
+        </div>
+        {menuItem.map((item, index) => (
+          <NavLink
+            to={item.path}
+            key={index}
+            className="link"
+            activeClassName="active" // Corregido a 'activeClassName'
+          >
+            <div className="icon">{item.icon}</div>
+            <div style={{ display: isOpen ? 'block' : 'none' }} className="link_text">
+              {item.name}
+            </div>
+          </NavLink>
+        ))}
+      </div>
+      <main>{children}</main>
+    </div>
+  );
+};
