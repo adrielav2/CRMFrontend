@@ -13,27 +13,67 @@ main{
 .sidebar{
   background: #233D4D;
   color: #fff;
-  height: 100vh;
-  width: 200px;
+  width: 370px;
+  height: 1024px;
+  flex-shrink: 0;
   transition: all 0.5s;
+}
+.divider {
+  width: 50px;
+}
+.divider.small {
+   /* Establece el ancho reducido cuando sea necesario */
+  width: 300px;
+  height: 1px;
+  display: flex;
+  transition: all 0.5s;
+  background: #12959E;
+  margin-bottom: 20px; 
+}
+.text{
+  color: #FFF;
+  font-family: Inter;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  margin-top: 15px; /* Margen superior del h2 (ajusta según tus preferencias) */
+  margin-bottom: 5px; 
 }
 .top_section{
   display: flex;
-  align-items:center;
   padding:20px 15px;
+  flex-direction: column; 
+  margin-bottom: 30px; 
+  background: rgba(255, 255, 255, 0.15);
 }
 .logo{
-  font-size: 30px;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-right: 20px;
 }
 .bars{
   display: flex;
   font-size: 25px;
-  margin-left: 50px;
+  margin-bottom: 20px; 
+  
 }
+
 .link{
   display: flex;
   color: #fff;
   padding: 10px 15px;
+  gap: 15px;
+  transition: all 0.5s;
+}
+.linkP{
+  display: flex;
+  color: #fff;
+  padding: 10px 0px;
   gap: 15px;
   transition: all 0.5s;
 }
@@ -48,4 +88,13 @@ main{
 }
 .icon, .link_text{
   font-size: 20px;
+  font-family: Inter;
+}
+.iconL{
+  font-size: 30px;
+}
+.iconP, .link_textP{
+  font-size: 20px;
+  font-family: Inter;
+  margin-top: 30px;
 }

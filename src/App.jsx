@@ -12,7 +12,7 @@ export function App() {
             <Routes>
             {/*<Evaluacion /><Route exact path= "/" element = {<Login/>} />
             <Route exact path= "/recuperar" element = {<Recuperar/>} /> */}
-            <Route exact path= "/e" element = {<Evaluacion/>} />
+            <Route exact path= "/" element = {<Evaluacion/>} />
             </Routes>
         </div>
     </Router>
