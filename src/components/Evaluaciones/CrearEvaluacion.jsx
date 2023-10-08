@@ -20,7 +20,7 @@ export  const CrearEvaluacion = () => {
     const [tipoEvalaucion, setTipoEvaluacion] = useState("");
     const [fileInputKey, setFileInputKey] = useState('');
     //Esto va parte de la tabla que aun no esta creada
-    const [cedula, setCedula] = useState('');
+    const [cedula, setCedula] = useState(''); //FALTA AGREGAR LA TABLA DE AHI ES DONDE SE RECOGE
     const [nombreCliente, setNombreCliente] = useState('');
     let navigate = useNavigate();
 
@@ -45,6 +45,10 @@ export  const CrearEvaluacion = () => {
           });
         
     }
+    const handleSearch = async () => { 
+        //Obtener infromacion existente en la base de datos
+        //A esto me refiero a la tabla de los clientes
+    }; 
   
     const handleFileChange = (e) => {
       const files = e.target.files;
@@ -70,6 +74,12 @@ export  const CrearEvaluacion = () => {
     };
     const handleCostoChange = (event) => {
         setCosto(event.target.value);
+    };
+    const handleClienteNombreChange = (event) => {
+        setNombreCliente(event.target.value);
+    };
+    const handleCedulaChange = (event) => {
+        setCedula(event.target.value);
     };
     const handleFechaEjecucionChange = (date) => {
         setFechaEjecucion(date);

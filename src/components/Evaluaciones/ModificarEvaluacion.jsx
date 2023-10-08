@@ -30,20 +30,7 @@ export const ModificarEvaluacion = () => {
         
         //Para enviar los datos de la fecha es inputValue
         //Lo de abajo es la notificacion de que ya se creo la evalaucion
-        
-        // Swal.fire({
-        //     title: 'Confirmación',
-        //     text: 'La evaluación se ha creado exitosamente',
-        //     icon: 'success',
-        //     confirmButtonText: 'Aceptar',
-        //     allowOutsideClick: false, // Evita que se cierre haciendo clic fuera de la notificación
-        //     allowEscapeKey: false,    // Evita que se cierre al presionar la tecla Escape (esc)
-        //   }).then((result) => {
-        //     if (result.isConfirmed) {
-        //       // El usuario hizo clic en "OK", entonces llama a la función gotoMenu
-        //       gotoMenu();
-        //     }
-        //   });
+  
         //Notificacion de que se realizaron los cambios
         Swal.fire({
             title: '¿Está seguro desea modificar la evaluación?',
