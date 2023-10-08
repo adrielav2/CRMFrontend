@@ -1,25 +1,23 @@
-
 import React, { useState, useEffect, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { MdOutlineDeleteForever } from 'react-icons/md';
-import { AiOutlinePlusCircle } from 'react-icons/ai';
+import { BsFillPencilFill } from 'react-icons/bs';
 import { Navbar } from '../Navbar/Navbar';
 import './CrearEvaluacion.css';
 import Swal from 'sweetalert2';
-export  const CrearEvaluacion = () => {
+export const ModificarEvaluacion = () => {
     const [nombre, setNombre] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [costo, setCosto] = useState('');
     const [selectedFiles, setSelectedFiles] = useState([]);
+    const [fileInputKey, setFileInputKey] = useState('');
     const [fechaEjecucion, setFechaEjecucion] = useState(new Date());
     const [inputValue, setInputValue] = useState('');
     const [estado, setEstado] = useState("");
     const [tipoEvalaucion, setTipoEvaluacion] = useState("");
-    const [fileInputKey, setFileInputKey] = useState('');
-    //Esto va parte de la tabla que aun no esta creada
     const [cedula, setCedula] = useState('');
     const [nombreCliente, setNombreCliente] = useState('');
     let navigate = useNavigate();
@@ -29,33 +27,98 @@ export  const CrearEvaluacion = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();  
         //Es para enviar informacion al backend
+        
+        //Para enviar los datos de la fecha es inputValue
         //Lo de abajo es la notificacion de que ya se creo la evalaucion
+        
+        // Swal.fire({
+        //     title: 'Confirmación',
+        //     text: 'La evaluación se ha creado exitosamente',
+        //     icon: 'success',
+        //     confirmButtonText: 'Aceptar',
+        //     allowOutsideClick: false, // Evita que se cierre haciendo clic fuera de la notificación
+        //     allowEscapeKey: false,    // Evita que se cierre al presionar la tecla Escape (esc)
+        //   }).then((result) => {
+        //     if (result.isConfirmed) {
+        //       // El usuario hizo clic en "OK", entonces llama a la función gotoMenu
+        //       gotoMenu();
+        //     }
+        //   });
+        //Notificacion de que se realizaron los cambios
         Swal.fire({
-            title: 'Confirmación',
-            text: 'La evaluación se ha creado exitosamente',
-            icon: 'success',
+            title: '¿Está seguro desea modificar la evaluación?',
+            showDenyButton: true,
             confirmButtonText: 'Aceptar',
+            denyButtonText: `Cancelar`,
             allowOutsideClick: false, // Evita que se cierre haciendo clic fuera de la notificación
-            allowEscapeKey: false,    // Evita que se cierre al presionar la tecla Escape (esc)
+            allowEscapeKey: false, 
           }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            
             if (result.isConfirmed) {
-              // El usuario hizo clic en "OK", entonces llama a la función gotoMenu
+              Swal.fire('La evaluación se ha modificado satisfactoriamente')
               gotoMenu();
+            } else if (result.isDenied) {
+              Swal.fire('No se guaron los cambios')
             }
-          });
+          })
         
     }
-  
+    const handleSearch = async () => { 
+        //Obtener infromacion existente en la base de datos
+        // const res = await fetch(`${API}/getProfesorCodigo/${codigoRef.current.value}`);
+        // const data = await res.json();//resultado de la consulta
+        // console.log(data) // imprime en consola web
+        setNombre('Evaluacion para el Ministerio de salud')
+        setDescripcion('Evaluacion de accesibilidad')
+        //setFechaEjecucion('20/09/2023')
+        setTipoEvaluacion(1)
+        
+        setEstado(1)
+        setCosto(230000)
+        setCedula('123129131')
+        setNombreCliente('Ministerio de hacienda')
+        
+        //La fecha
+        const fechaBaseDatos = "2023-11-08T00:00:00Z"; // Ejemplo
+        // Parsear la fecha de la base de datos en un objeto Date
+        // Convertir la cadena de fecha en un objeto Date en zona horaria UTC
+        //Tiene que se como el de abajo ya que es necesario la zona horaria entoces se agrega lo de T
+        // const fechaDesdeBaseDatos = new Date(fechaSoloFecha + "T00:00:00Z");
+        const fechaDesdeBaseDatos = new Date(fechaBaseDatos);
+        // Sumar un día a la fecha, ya que hay un desface de un dia ejemplo si es 8, pone 7 por eso la suma de uno
+        fechaDesdeBaseDatos.setDate(fechaDesdeBaseDatos.getDate() + 1);
+        // Luego, establece esa fecha en el estado fechaEjecucion
+        setFechaEjecucion(fechaDesdeBaseDatos);
+
+        // Para modificar los archivos
+        setSelectedFiles([
+            {
+              nombre: 'Carnet e Informe de matrícula.pdf',
+              url: 'CRMFrontend/public/Carnet e Informe de matrícula.pdf'
+            },
+            {
+              nombre: 'logo192.png',
+              url: 'CRMFrontend/public/logo192.png'
+            }
+          ]);
+    };
     const handleFileChange = (e) => {
-      const files = e.target.files;
-      setSelectedFiles([...selectedFiles, ...Array.from(files)]);
-      setFileInputKey(Date.now()); // Para restablecer el input y permitir la selección del mismo archivo nuevamente
+        const files = e.target.files;
+        const newFiles = Array.from(files).map((file) => ({
+          nombre: file.name, // Asigna el nombre del archivo
+          url: URL.createObjectURL(file), // Genera una URL para el archivo (puedes usar otra lógica aquí)
+        }));
+      
+        // Concatena los nuevos archivos con los archivos existentes
+        setSelectedFiles([...selectedFiles, ...newFiles]);
+        setFileInputKey(Date.now()); // Para restablecer el input y permitir la selección del mismo archivo nuevamente
     };
-    const handleRemoveFile = (index) => {
-      const newSelectedFiles = [...selectedFiles];
-      newSelectedFiles.splice(index, 1);
-      setSelectedFiles(newSelectedFiles);
-    };
+    
+    const handleRemoveFile = (urlToRemove) => {
+        const updatedFiles = selectedFiles.filter((file) => file.url !== urlToRemove);
+        setSelectedFiles(updatedFiles);
+      };
     const handleEstadoChange = (event) => {
         setEstado(event.target.value);
     };
@@ -82,17 +145,21 @@ export  const CrearEvaluacion = () => {
         //console.log("Fecha formateada:", formattedDate, typeof(formattedDate));
 
         setInputValue(formattedDate);
+        
     };
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
       };
-
     const Title = styled.h1`
     font-size: 24px;
     color: #000000;
     margin-bottom: 80px;
     margin-top: 25px;
     `;
+    
+    React.useEffect(() => {
+        handleSearch()
+    }, []);
    
     return (
        
@@ -101,7 +168,7 @@ export  const CrearEvaluacion = () => {
         <Navbar />
             <div class="row">
                     <div class="col-sm-3">
-                        <Title>Crear Evaluaciones</Title>
+                        <Title>Modificar Evaluación</Title>
                     </div>
                     <form onSubmit={handleSubmit}>
                     <div class="mb-3">
@@ -158,28 +225,40 @@ export  const CrearEvaluacion = () => {
                                     onChange={handleFileChange}
                                     multiple
                                 />
-                                <ul style={{ marginLeft: '80px'}}>
-                                {selectedFiles.map((file, index) => (
-                                    <li key={index}>
-                                        {file.name}
-                                        <button style={{ marginLeft: '10px', backgroundColor: '#ffffff', border: '0 transparent'} } onClick={() => handleRemoveFile(index)}>
-                                            <MdOutlineDeleteForever style={{
-                                            fontSize: '25px', // Tamaño del icono
-                                        }}/></button>
-                                    </li>
+                                <ul style={{ marginLeft: '80px' }}>
+                                    {selectedFiles.map((file) => (
+                                        <li key={file.nombre}> {/* Cambia key a file.url si es único */}
+                                        {file.nombre} {/* Muestra el nombre del archivo */}
+                                        <button
+                                            style={{
+                                                marginLeft: '10px',
+                                                backgroundColor: '#ffffff',
+                                                border: '0 transparent',
+                                            }}
+                                            onClick={() => handleRemoveFile(file.url)}
+                                            >
+                                            <MdOutlineDeleteForever
+                                            style={{
+                                                fontSize: '25px',
+                                            }}
+                                            />
+                                        </button>
+                                        </li>
                                     ))}
-                                </ul>
+                                    </ul>
+
+
                             </div>
                         </div>
                         
                             
                             <div className="mb-3" 
                                 style={{ marginTop:  '100px' }} >
-                            <button type="submit" className='button1' >
-                                <AiOutlinePlusCircle style={{
+                            <button type="submit" className="button1" >
+                                <BsFillPencilFill style={{
                                             fontSize: '25px',  marginRight: '20px',  marginLeft: '20px'// Tamaño del icono
-                                        }} /> Crear evaluación
-                            </button>
+                                        }} /> Modificar evaluación
+                                </button>
                             
                             </div>
         
