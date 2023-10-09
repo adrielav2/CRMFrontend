@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import './Navbar.css';
 import {
-  FaTh,
   FaBars,
-  FaUserAlt,
-  FaRegChartBar,
-  FaCommentAlt,
-  FaShoppingBag,
-  FaThList,
   FaUserPlus,
   FaUserFriends,
   FaRegUserCircle,
@@ -63,7 +57,7 @@ export const Navbar = ({ children }) => {
   ];
   const menuEntidades = [
     {
-      path: '/product',
+      path: '/clientes',
       name: 'Clientes',
       icon: <FaUserFriends />
     },
@@ -73,7 +67,7 @@ export const Navbar = ({ children }) => {
       icon: <FaUserPlus  />
     },
     {
-      path: '/productList',
+      path: '/funcionarios',
       name: 'Funcionarios',
       icon: <MdIcons.MdEngineering />
     }

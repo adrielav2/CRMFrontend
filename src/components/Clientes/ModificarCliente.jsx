@@ -4,8 +4,10 @@ import { Navbar } from '../Navbar/Navbar';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import './CSSClientes/Clientes.css'
-import { AiOutlinePlusCircle } from 'react-icons/ai';
-export const CrearCliente = () => {
+
+import { BsFillPencilFill } from 'react-icons/bs';
+
+export const ModificarCliente = () => {
     let navigate = useNavigate();
     const gotoCliente = () => { navigate('/clientes'); }
 
@@ -14,28 +16,41 @@ export const CrearCliente = () => {
     const [telefono, setTelefono] = useState('');
     const [cedula, setCedula] = useState('');
     const [nombre, setNombreCliente] = useState('');
+    const [estado, setEstado] = useState('');
     const handleSubmit = async (event) => {
         event.preventDefault();  
         //Es para enviar informacion al backend
         //Lo de abajo es la notificacion de que ya se creo la evalaucion
         //Recordar en el backend poner lo de fecha de ingreso que se hace alla
         Swal.fire({
-            title: 'Confirmación',
-            text: 'El cliente se ha creado satisfactoriamente',
-            icon: 'success',
+            title: '¿Está seguro que desea modificar el cliente?',
+            showDenyButton: true,
             confirmButtonText: 'Aceptar',
+            denyButtonText: `Cancelar`,
             allowOutsideClick: false, // Evita que se cierre haciendo clic fuera de la notificación
-            allowEscapeKey: false,    // Evita que se cierre al presionar la tecla Escape (esc)
+            allowEscapeKey: false, 
           }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            
             if (result.isConfirmed) {
-              // El usuario hizo clic en "OK", entonces llama a la función gotoMenu
+              Swal.fire('El cliente se ha modificado satisfactoriamente')
               gotoCliente();
+            } else if (result.isDenied) {
+              Swal.fire('No se guaron los cambios')
             }
-          });
+          })
         
     }
   
-
+    const handleSearch = async () => {
+        //Buscamos la informacion del backend
+        
+        setNombreCliente('Ministerio de salud')
+        setCedula('123129131')
+        setTelefono('27826112')
+        setCorreo('ministeriosalud@gmail.com')
+        setEstado(1)
+    };
     const Title = styled.h1`
     font-size: 24px;
     color: #000000;
@@ -54,6 +69,12 @@ export const CrearCliente = () => {
     const handleCorreoChange = (event) => {
         setCorreo(event.target.value);
     };
+    const handleEstadoChange = (event) => {
+        setEstado(event.target.value);
+    };
+    React.useEffect(() => {
+        handleSearch()
+    }, []);
     return (
         
         <Fragment>
@@ -61,7 +82,7 @@ export const CrearCliente = () => {
         <Navbar />
         <div class="row">
                     <div class="col-sm-3">
-                        <Title>Crear Cliente</Title>
+                        <Title>Modificar Cliente</Title>
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div class="mb-3">
@@ -88,13 +109,20 @@ export const CrearCliente = () => {
                             placeholder="Ingrese el correo electronico" value={correo} onChange={handleCorreoChange}/>
                             
                         </div>
-                    
+                        <div class="mb-3">
+                            <label style={{ marginRight: '150px' }} for="nameInput" class="form-label">Estado:</label>
+                            <select id="mySelect" value={estado} onChange={handleEstadoChange}>
+                                <option value="">Seleccione el estado del cliente</option>
+                                <option value="1">Activo</option>
+                                <option value="2">Inactivo</option>
+                            </select>
+                        </div>
                             
-                        <div className="mb-3" style={{ marginRight: '140px' }}>
+                        <div className="mb-3" style={{ marginRight: '140px', marginTop: '90px' }}>
                             <button type="submit" className='button1' >
-                                <AiOutlinePlusCircle style={{
+                                <BsFillPencilFill style={{
                                             fontSize: '25px',  marginRight: '20px',  marginLeft: '20px'// Tamaño del icono
-                                        }} /> Crear cliente
+                                        }} /> Modificar cliente
                             </button>
                         
                         </div>

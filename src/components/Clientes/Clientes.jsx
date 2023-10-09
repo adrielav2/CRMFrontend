@@ -1,9 +1,9 @@
 
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { Navbar } from '../Navbar/Navbar';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import './CSSClientes/Clientes.css'
 export const Clientes = () => {
     const [cedula, setCedula] = useState(''); //FALTA AGREGAR LA TABLA DE AHI ES DONDE SE RECOGE
