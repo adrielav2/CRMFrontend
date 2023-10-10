@@ -127,8 +127,8 @@ export const ModificarEvaluacion = () => {
         const month = date.getMonth() + 1; // Obtener el mes (se suma 1 ya que los meses se indexan desde 0)
         const day = date.getDate(); // Obtener el día
         const year = date.getFullYear(); // Obtener el año
-        // Construir la cadena en el formato deseado (mm/dd/aaaa)
-        const formattedDate = `${month}/${day}/${year}`;
+        // Construir la cadena en el formato deseado (aaaa/dd/mm)
+        const formattedDate = `${year}-${month}-${day}`;
         //console.log("Fecha formateada:", formattedDate, typeof(formattedDate));
 
         setInputValue(formattedDate);

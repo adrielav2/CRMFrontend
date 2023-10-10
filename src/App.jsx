@@ -6,11 +6,16 @@ import { Evaluacion } from "./components/Evaluaciones/Evaluacion";
 import { CrearEvaluacion } from "./components/Evaluaciones/CrearEvaluacion";
 import { DetalleEvaluacion } from "./components/Evaluaciones/DetalleEvaluacion";
 import { ModificarEvaluacion } from "./components/Evaluaciones/ModificarEvaluacion";
+
 import { Clientes } from "./components/Clientes/Clientes";
 import { CrearCliente } from "./components/Clientes/CrearCliente";
 import { DetalleCliente } from "./components/Clientes/DetalleCliente";
 import { ModificarCliente } from "./components/Clientes/ModificarCliente";
+
 import { Funcionarios } from "./components/Funcionarios/Funcionarios";
+import { CrearFuncionarios } from "./components/Funcionarios/CrearFuncionarios";
+import { DetalleFuncionario } from "./components/Funcionarios/DetalleFuncionario";
+import { ModificarFuncionario } from "./components/Funcionarios/ModificarFuncionario";
 export function App() {
     return (
     <Router>
@@ -30,6 +35,9 @@ export function App() {
             <Route exact path= "/modificarCliente" element = {<ModificarCliente/>} />
 
             <Route exact path= "/funcionarios" element = {<Funcionarios/>} />
+            <Route exact path= "/crearFuncionarios" element = {<CrearFuncionarios/>} />
+            <Route exact path= "/detalleFuncionario" element = {<DetalleFuncionario/>} />
+            <Route exact path= "/modificarFuncionario" element = {<ModificarFuncionario/>} />
             </Routes>
         </div>
     </Router>

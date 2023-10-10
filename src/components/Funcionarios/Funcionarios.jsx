@@ -13,7 +13,7 @@ export const Funcionarios = () => {
         setCedula(event.target.value);
     };
     let navigate = useNavigate();
-    const gotoCrearCliente = () => { navigate('/crearClientes'); }
+    const gotoCrearFuncionario = () => { navigate('/crearFuncionarios'); }
     
     const Title = styled.h1`
     font-size: 24px;
@@ -37,7 +37,7 @@ export const Funcionarios = () => {
              </div>
              
              <div className="mb-3" style={{ marginTop: '100px', display: 'flex'}}>
-                 <button  className="button3" style={{marginLeft: '-140px', height: '50px', width: '180px'}} onClick={gotoCrearCliente}>
+                 <button  className="button3" style={{marginLeft: '-140px', height: '50px', width: '180px'}} onClick={gotoCrearFuncionario}>
                      <AiOutlinePlusCircle style={{
                      fontSize: '25px',
                      color: '#12959E', // Tamaño del icono
@@ -48,7 +48,7 @@ export const Funcionarios = () => {
                         Crear<br />Funcionario
                     </div>
                  </button>
-                 <button  className="button3" style={{marginLeft: '140px', height: '50px', width: '180px'}} onClick={gotoCrearCliente}>
+                 <button  className="button3" style={{marginLeft: '140px', height: '50px', width: '180px'}} onClick={gotoCrearFuncionario}>
                      <FiClipboard style={{
                      fontSize: '25px',
                      color: '#12959E', // Tamaño del icono
