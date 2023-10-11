@@ -16,6 +16,10 @@ import { Funcionarios } from "./components/Funcionarios/Funcionarios";
 import { CrearFuncionarios } from "./components/Funcionarios/CrearFuncionarios";
 import { DetalleFuncionario } from "./components/Funcionarios/DetalleFuncionario";
 import { ModificarFuncionario } from "./components/Funcionarios/ModificarFuncionario";
+import { CrearUsuario } from "./components/Usuarios/CrearUsuario";
+import { DetalleMiCuenta } from "./components/Usuarios/DetalleMiCuenta";
+import { ModficarMiCuenta } from "./components/Usuarios/ModficarMiCuenta";
+import { Proyectos } from "./components/Proyectos/Proyectos";
 export function App() {
     return (
     <Router>
@@ -38,6 +42,13 @@ export function App() {
             <Route exact path= "/crearFuncionarios" element = {<CrearFuncionarios/>} />
             <Route exact path= "/detalleFuncionario" element = {<DetalleFuncionario/>} />
             <Route exact path= "/modificarFuncionario" element = {<ModificarFuncionario/>} />
+
+            
+            <Route exact path= "/crearUsuario" element = {<CrearUsuario/>} />
+            <Route exact path= "/detalleMiCuenta" element = {<DetalleMiCuenta/>} />
+            <Route exact path= "/modficarMiCuenta" element = {<ModficarMiCuenta/>} />
+
+            <Route exact path= "/proyectos" element = {<Proyectos/>} />
             </Routes>
         </div>
     </Router>

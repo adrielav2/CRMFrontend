@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import Select from 'react-select';
 
-export const CrearFuncionarios = () => {
+export const CrearUsuario = () => {
     let navigate = useNavigate();
     const gotoCliente = () => { navigate('/funcionarios'); }
 
@@ -73,42 +73,18 @@ export const CrearFuncionarios = () => {
         //Es para enviar informacion al backend
         //Lo de abajo es la notificacion de que ya se creo la evalaucion
         //Recordar en el backend poner lo de fecha de ingreso que se hace alla
+        //SE DEBE RECUPERAR LA CONTRASEÑA 
         Swal.fire({
             title: 'Confirmación',
-            text: 'El empleado se ha creado satisfactoriamente',
+            html: 'El usuario se ha creado satisfactoriamente<br/><br/>La contraseña temporal es: 12345', // Cambia el texto según tus necesidades,
             icon: 'success',
             confirmButtonText: 'Aceptar',
             allowOutsideClick: false, // Evita que se cierre haciendo clic fuera de la notificación
             allowEscapeKey: false,    // Evita que se cierre al presionar la tecla Escape (esc)
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // El usuario hizo clic en "OK", entonces llama a la función gotoMenu
-              gotoCliente();
-            }
           });
         
     };
-    const handleSearch = async () => {
-        const opcionesDesdeBackend = [
-            { id: 1, nombre: 'Opción 1' },
-            { id: 2, nombre: 'Opción 2' },
-            { id: 3, nombre: 'Opción 3' },
-            
-            { id: 4, nombre: 'Opción 4' },
-            { id: 5, nombre: 'Opción 5' },
-            { id: 6, nombre: 'Opción 6' },
-            { id: 7, nombre: 'Opción 7' },
-            { id: 8, nombre: 'Opción 8' },
-            { id: 9, nombre: 'Opción 9' },
-          ];
-            // Mapeamos las opciones desde el backend al formato que utiliza react-select
-            const opcionesFormateadas = opcionesDesdeBackend.map((opcion) => ({
-                value: opcion.id,
-                label: opcion.nombre,
-            }));
-        
-            setOptions(opcionesFormateadas);
-    };
+   
       const handleSelectChange = (selected) => {
         setSelectedOption(selected);
       };
@@ -152,9 +128,6 @@ export const CrearFuncionarios = () => {
           overflowX: 'auto', // Habilita el desplazamiento horizontal
         }),
       };
-      React.useEffect(() => {
-        handleSearch()
-    }, []);
     return (
         
         <Fragment>
@@ -162,7 +135,7 @@ export const CrearFuncionarios = () => {
         <Navbar />
         <div class="row">
                     <div class="col-sm-3">
-                        <Title>Crear Funcionario</Title>
+                        <Title>Crear usuario</Title>
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div class="mb-3">
@@ -198,9 +171,6 @@ export const CrearFuncionarios = () => {
                         <label  for="inputDate" className="form-label" style={{ marginRight:  '100px' }} >
                             Seleccione la fecha de nacimiento:
                         </label>
-                        <label  for="inputDate" className="form-label" >
-                        Seleccione el o los tipo(s) de perfil(es)
-                        </label>
                         </div>
                         <div className="mb-3" style={{ display: 'flex', alignItems: 'flex-start'  }}>
                             <DatePicker
@@ -212,32 +182,13 @@ export const CrearFuncionarios = () => {
                                 showMonthDropdown
                                 maxDate={fechaNacimientoInicial}
                             />
-                            <div style={{marginLeft: '150px'}}>
-                                <Select
-                                    options={options}
-                                    isMulti
-                                    name="colors"
-                                    classNamePrefix="select"
-                                    className="basic-multi-select"
-                                    value={selectedOption}
-                                    onChange={setSelectedOption}
-                                    styles={customStyles}
-                                />
-                            </div>
-                            <div style={{marginLeft: '150px'}}>
-                                <button className='button2' onClick={handleCrearPerfil}>
-                                    <AiOutlinePlusCircle style={{
-                                                fontSize: '25px',  marginRight: '20px',  marginLeft: '20px'// Tamaño del icono
-                                            }} /> Crear perfil
-                                </button>
-                            </div>
                         </div>
                                                                     
                         <div className="mb-3" style={{ marginRight: '140px', marginTop:  '100px' }} >
                             <button type="submit" className='button1' >
                                 <AiOutlinePlusCircle style={{
                                             fontSize: '25px',  marginRight: '20px',  marginLeft: '20px'// Tamaño del icono
-                                        }} /> Crear funcionario
+                                        }} /> Crear usuario
                             </button>
                         
                         </div>

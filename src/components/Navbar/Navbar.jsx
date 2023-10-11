@@ -16,7 +16,8 @@ import { NavLink } from 'react-router-dom';
 export const Navbar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDividerSmall, setIsDividerSmall] = useState(false); // Nuevo estado para controlar el tamaño del Divider
-
+  
+  //const gotoMiCuenta = () => { navigate('/detalleMiCuenta'); }
   const toggle = () => {
     setIsOpen(!isOpen);
     setIsDividerSmall(!isDividerSmall); // Cambia el tamaño del Divider al hacer clic en el botón
@@ -37,7 +38,7 @@ export const Navbar = ({ children }) => {
       name: 'Capacitaciones',
       icon: <FaBookReader />
     }, {
-      path: '/comment',
+      path: '/proyectos',
       name: 'Proyectos',
       icon: <RiFolderAddFill />
     }
@@ -62,7 +63,7 @@ export const Navbar = ({ children }) => {
       icon: <FaUserFriends />
     },
     {
-      path: '/productList',
+      path: '/crearUsuario',
       name: 'Usuarios',
       icon: <FaUserPlus  />
     },
@@ -92,7 +93,7 @@ export const Navbar = ({ children }) => {
             <FaBars onClick={toggle} />
           </div>
           <NavLink
-            to={'/product'}
+            to={'/detalleMiCuenta'}
             className="linkP"
             activeClassName="active"
           >
