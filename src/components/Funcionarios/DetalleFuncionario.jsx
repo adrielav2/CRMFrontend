@@ -20,6 +20,9 @@ export const DetalleFuncionario = () => {
     const [telefono, setTelefono] = useState('');
     const [estado, setEstado] = useState('');
     const [correo, setCorreo] = useState('');
+    const [selectedOption, setSelectedOption] = useState([]);
+    const [options, setOptions] = useState([]);
+
 
     const handleSearch = async () => {
         //Buscamos la informacion del backend
@@ -32,6 +35,35 @@ export const DetalleFuncionario = () => {
         setTelefono('25486963')
         setCorreo('ministeriosalud@gmail.com')
         setEstado('Activo')
+        const opcionesDesdeBackend = [
+            { id: 1, nombre: 'Opción 1' },
+            { id: 2, nombre: 'Opción 2' },
+            { id: 3, nombre: 'Opción 3' },
+            
+            { id: 4, nombre: 'Opción 4' },
+            { id: 5, nombre: 'Opción 5' },
+            { id: 6, nombre: 'Opción 6' },
+            { id: 7, nombre: 'Opción 7' },
+            { id: 8, nombre: 'Opción 8' },
+            { id: 9, nombre: 'Opción 9' },
+          ];
+            // Mapeamos las opciones desde el backend al formato que utiliza react-select
+            const opcionesFormateadas = opcionesDesdeBackend.map((opcion) => ({
+                value: opcion.id,
+                label: opcion.nombre,
+            }));
+        
+            setOptions(opcionesFormateadas);
+          // Supongamos que las opciones seleccionadas anteriormente están en un array de IDs
+            const opcionesSeleccionadasAnteriormente = [1, 2,3]; // IDs de opciones seleccionadas
+
+            // Mapeamos las IDs a objetos de opciones seleccionadas
+            const opcionesSeleccionadas = opcionesSeleccionadasAnteriormente.map((value) =>
+                opcionesFormateadas.find((opcion) => opcion.value === value)
+            );
+
+            // Establecer las opciones seleccionadas
+            setSelectedOption(opcionesSeleccionadas);
     };
     const Title = styled.h1`
     font-size: 24px;
@@ -51,7 +83,7 @@ export const DetalleFuncionario = () => {
             /* Read more about isConfirmed, isDenied below */
             
             if (result.isConfirmed) {
-              Swal.fire('El cliente se ha eliminado satisfactoriamente')
+              Swal.fire('El funcionario se ha eliminado satisfactoriamente')
               gotoCliente();
             } else if (result.isDenied) {
               Swal.fire('No se guaron los cambios')
@@ -104,6 +136,16 @@ export const DetalleFuncionario = () => {
                     <div class="mb-3" style={{ marginTop: '50px'}} >
                         <label style={{ marginRight: '150px' }} for="estadoInput" class="form-label">Estado:</label>
                         <label  style={{ marginLeft: '150px' }}for="estado" class="form-label">{estado}</label>  
+                    </div>
+                    <div class="mb-3" style={{ marginBottom: '30px', marginTop:'50px' }}>
+                        <label for="idEvLave" class="form-label">Perfiles: </label>
+                        <ul style={{ marginTop:'30px' }}>
+                            {selectedOption.map((opcion, index) => (
+                                <li key={index} style={{marginLeft: '50px'}}>
+                                        {opcion.label}
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                     <div className="mb-3" style={{ marginTop: '100px', display: 'flex' }}>
                         <button type="submit" className="button2" onClick={gotoModificarFuncionario}>

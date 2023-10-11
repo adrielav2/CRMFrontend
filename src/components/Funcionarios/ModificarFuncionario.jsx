@@ -11,7 +11,7 @@ import '../Clientes/CSSClientes/Clientes.css';
 import Select from 'react-select';
 export const ModificarFuncionario = () => {
     let navigate = useNavigate();
-    const gotoCliente = () => { navigate('/funcionarios'); }
+    const gotoFuncionario = () => { navigate('/funcionarios'); }
 
 
     const [correo, setCorreo] = useState('');
@@ -21,7 +21,7 @@ export const ModificarFuncionario = () => {
     const [apellido, setApellido] = useState('');
     const [estado, setEstado] = useState('');
     
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState([]);
     const [options, setOptions] = useState([]);
 
     const fechaNacimientoInicial = new Date();
@@ -46,8 +46,8 @@ export const ModificarFuncionario = () => {
             /* Read more about isConfirmed, isDenied below */
             
             if (result.isConfirmed) {
-              Swal.fire('El cliente se ha modificado satisfactoriamente')
-              gotoCliente();
+              Swal.fire('El funcionario se ha modificado satisfactoriamente')
+              gotoFuncionario();
             } else if (result.isDenied) {
               Swal.fire('No se guaron los cambios')
             }
@@ -75,19 +75,35 @@ export const ModificarFuncionario = () => {
         fechaDesdeBaseDatos.setDate(fechaDesdeBaseDatos.getDate() + 1);
         // Luego, establece esa fecha en el estado fechaEjecucion
         setFechaNacimiento(fechaDesdeBaseDatos);
-        setOptions ([
-            { value: 'opcion1', label: 'Opción 1' },
-            { value: 'opcion2', label: 'Opción 2' },
-            { value: 'opcion3', label: 'Opción 3' },
+        const opcionesDesdeBackend = [
+            { id: 1, nombre: 'Opción 1' },
+            { id: 2, nombre: 'Opción 2' },
+            { id: 3, nombre: 'Opción 3' },
             
-            { value: 'opcion4', label: 'Opción 4' },
-            { value: 'opcion5', label: 'Opción 5' },
-            { value: 'opcion6', label: 'Opción 6' },
-            { value: 'opcion7', label: 'Opción 7' },
-            { value: 'opcion8', label: 'Opción 8' },
-            { value: 'opcion9', label: 'Opción 9' },
-          ]);
-          setSelectedOption(1)
+            { id: 4, nombre: 'Opción 4' },
+            { id: 5, nombre: 'Opción 5' },
+            { id: 6, nombre: 'Opción 6' },
+            { id: 7, nombre: 'Opción 7' },
+            { id: 8, nombre: 'Opción 8' },
+            { id: 9, nombre: 'Opción 9' },
+          ];
+            // Mapeamos las opciones desde el backend al formato que utiliza react-select
+            const opcionesFormateadas = opcionesDesdeBackend.map((opcion) => ({
+                value: opcion.id,
+                label: opcion.nombre,
+            }));
+        
+            setOptions(opcionesFormateadas);
+          // Supongamos que las opciones seleccionadas anteriormente están en un array de IDs
+            const opcionesSeleccionadasAnteriormente = [1, 2,3]; // IDs de opciones seleccionadas
+
+            // Mapeamos las IDs a objetos de opciones seleccionadas
+            const opcionesSeleccionadas = opcionesSeleccionadasAnteriormente.map((value) =>
+                opcionesFormateadas.find((opcion) => opcion.value === value)
+            );
+
+            // Establecer las opciones seleccionadas
+            setSelectedOption(opcionesSeleccionadas);
     };
     const Title = styled.h1`
     font-size: 24px;
@@ -180,7 +196,7 @@ export const ModificarFuncionario = () => {
                             placeholder="Ingrese el correo electronico" value={correo} onChange={handleCorreoChange}/>
                         </div>
                         <div class="mb-3">
-                            <label style={{ marginRight: '150px' }} for="nameInput" class="form-label">Estado:</label>
+                            <label style={{ marginRight: '160px' }} for="nameInput" class="form-label">Estado:</label>
                             <select id="mySelect" value={estado} onChange={handleEstadoChange}>
                                 <option value="">Seleccione el estado del cliente</option>
                                 <option value="1">Activo</option>
@@ -217,15 +233,17 @@ export const ModificarFuncionario = () => {
                                     styles={customStyles}
                                 />
                             </div>
-                            
-                        <div className="mb-3" style={{ marginRight: '140px', marginTop: '90px' }}>
+                        
+                        </div>    
+                        <div className="mb-3" style={{ marginRight: '140px', marginTop: '60px' }}>
                             <button type="submit" className='button1' >
                                 <BsFillPencilFill style={{
                                             fontSize: '25px',  marginRight: '20px',  marginLeft: '20px'// Tamaño del icono
-                                        }} /> Modificar cliente
+                                        }} /> <div style={{ textAlign: 'left' }}>
+                                        Modificar<br />Funcionario
+                                    </div>
                             </button>
                         
-                        </div>
                         </div>
 
                     </form>

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Navbar } from '../Navbar/Navbar';
 import styled  from 'styled-components';
 import './DetalleEvaluacion.css';
+import Swal from 'sweetalert2';
+
 
 import { BsFillPencilFill } from 'react-icons/bs';
 import { RiDeleteBinLine } from 'react-icons/ri';
@@ -10,7 +12,7 @@ import { RiDeleteBinLine } from 'react-icons/ri';
 export const DetalleEvaluacion = () => {
     let navigate = useNavigate();
     const gotoModificarEvaluacion = () => { navigate('/modficarEvaluacion'); }
-
+    const gotoEvaluacion = () => { navigate('/'); }
 
     const [idevaluacion, setidEvaluacion] = useState('');
     const [nombre, setNombre] = useState('');
@@ -46,7 +48,27 @@ export const DetalleEvaluacion = () => {
         setNombreProyecto('')// Si es nulo no se mete 
     };
 
+    const handleDelete = async () =>{
+        Swal.fire({
+            title: '¿Está seguro que desea eliminar la evaluación seleccionada?',
+            showDenyButton: true,
+            confirmButtonText: 'Aceptar',
+            denyButtonText: `Cancelar`,
+            allowOutsideClick: false, // Evita que se cierre haciendo clic fuera de la notificación
+            allowEscapeKey: false, 
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            
+            if (result.isConfirmed) {
+              Swal.fire('La evaluación se ha eliminado satisfactoriamente')
+              gotoEvaluacion();
+            } else if (result.isDenied) {
+              Swal.fire('No se guaron los cambios')
+            }
+          })
 
+
+    }
     const Title = styled.h1`
     font-size: 24px;
     color: #000000;
@@ -136,7 +158,7 @@ export const DetalleEvaluacion = () => {
                                 color: '#12959E' // Tamaño del icono
                                 }} /> Modificar evaluación
                             </button>
-                            <button type="submit" className="button2">
+                            <button type="submit" className="button2" onClick={handleDelete}>
                                 <RiDeleteBinLine style={{
                                 fontSize: '25px',
                                 marginRight: '20px',
