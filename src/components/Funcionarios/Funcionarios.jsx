@@ -14,6 +14,7 @@ export const Funcionarios = () => {
     };
     let navigate = useNavigate();
     const gotoCrearFuncionario = () => { navigate('/crearFuncionarios'); }
+    const gotoPerfiles = () => { navigate('/perfiles')}
     
     const Title = styled.h1`
     font-size: 24px;
@@ -48,7 +49,7 @@ export const Funcionarios = () => {
                         Crear<br />Funcionario
                     </div>
                  </button>
-                 <button  className="button3" style={{marginLeft: '140px', height: '50px', width: '180px'}} onClick={gotoCrearFuncionario}>
+                 <button  className="button3" style={{marginLeft: '140px', height: '50px', width: '180px'}} onClick={gotoPerfiles}>
                      <FiClipboard style={{
                      fontSize: '25px',
                      color: '#12959E', // Tamaño del icono

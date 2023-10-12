@@ -16,10 +16,17 @@ import { Funcionarios } from "./components/Funcionarios/Funcionarios";
 import { CrearFuncionarios } from "./components/Funcionarios/CrearFuncionarios";
 import { DetalleFuncionario } from "./components/Funcionarios/DetalleFuncionario";
 import { ModificarFuncionario } from "./components/Funcionarios/ModificarFuncionario";
+
 import { CrearUsuario } from "./components/Usuarios/CrearUsuario";
 import { DetalleMiCuenta } from "./components/Usuarios/DetalleMiCuenta";
 import { ModficarMiCuenta } from "./components/Usuarios/ModficarMiCuenta";
+
 import { Proyectos } from "./components/Proyectos/Proyectos";
+import { CrearProyectos } from "./components/Proyectos/CrearProyectos";
+import { DetalleProyecto } from "./components/Proyectos/DetalleProyecto";
+import { ModificarProyecto } from "./components/Proyectos/ModificarProyecto";
+
+import { Perfiles } from "./components/Funcionarios/Perfiles/Perfiles";
 export function App() {
     return (
     <Router>
@@ -49,6 +56,11 @@ export function App() {
             <Route exact path= "/modficarMiCuenta" element = {<ModficarMiCuenta/>} />
 
             <Route exact path= "/proyectos" element = {<Proyectos/>} />
+            <Route exact path= "/crearProyectos" element = {<CrearProyectos/>} />
+            <Route exact path= "/detalleProyecto" element = {<DetalleProyecto/>} />
+            <Route exact path= "/modificarProyecto" element = {<ModificarProyecto/>} />
+
+            <Route exact path= "/perfiles" element = {<Perfiles/>} />
             </Routes>
         </div>
     </Router>

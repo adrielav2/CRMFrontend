@@ -12,7 +12,7 @@ export const Proyectos = () => {
     };
     const [proyectos, setProyectos] = useState([[]]);//Meter los datos de los clientes ahi
     let navigate = useNavigate();
-    const gotoCrearCliente = () => { navigate('/crearClientes'); }
+    const gotoCrearProyecto = () => { navigate('/crearProyectos'); }
     
     const Title = styled.h1`
     font-size: 24px;
@@ -35,7 +35,7 @@ export const Proyectos = () => {
                     </div>
             </div>
             <div className="mb-3" style={{ marginTop: '100px'}}>
-                <button  className="button3" style={{marginLeft: '-80px'  }} onClick={gotoCrearCliente}>
+                <button  className="button3" style={{marginLeft: '-80px'  }} onClick={gotoCrearProyecto}>
                     <AiOutlinePlusCircle style={{
                     fontSize: '25px',
                     color: '#12959E', // Tamaño del icono
