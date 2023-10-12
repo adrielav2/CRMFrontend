@@ -27,6 +27,10 @@ import { DetalleProyecto } from "./components/Proyectos/DetalleProyecto";
 import { ModificarProyecto } from "./components/Proyectos/ModificarProyecto";
 
 import { Perfiles } from "./components/Funcionarios/Perfiles/Perfiles";
+
+import { TiposEvaluaciones } from "./components/Evaluaciones/TiposEvluaciones/TiposEvaluaciones";
+import { CrearTipoEvaluacion } from "./components/Evaluaciones/TiposEvluaciones/CrearTipoEvaluacion";
+import { ModficarTipoEvaluacion } from "./components/Evaluaciones/TiposEvluaciones/ModficarTipoEvaluacion";
 export function App() {
     return (
     <Router>
@@ -61,6 +65,10 @@ export function App() {
             <Route exact path= "/modificarProyecto" element = {<ModificarProyecto/>} />
 
             <Route exact path= "/perfiles" element = {<Perfiles/>} />
+
+            <Route exact path= "/tiposEvaluaciones" element = {<TiposEvaluaciones/>} />
+            <Route exact path= "/crearTiposEvaluaciones" element = {<CrearTipoEvaluacion/>} />
+            <Route exact path= "/modificarTiposEvaluaciones" element = {<ModficarTipoEvaluacion/>} />
             </Routes>
         </div>
     </Router>
