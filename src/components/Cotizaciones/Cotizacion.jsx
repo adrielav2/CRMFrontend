@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { Navbar } from '../Navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { useTable, usePagination, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table'
-import  { matchSorter } from 'match-sorter'
+import { matchSorter } from 'match-sorter'
 
 const Title = styled.h1`
   font-size: 24px;
@@ -228,15 +228,15 @@ const Table = ({ columns, data }) => {
     () => ({
       // Add a new fuzzyTextFilterFn filter type.
       fuzzyText: fuzzyTextFilterFn,
-      // Or, override the default text filter to use
+      // Or, overridC the default text filter to use
       // "startWith"
       text: (rows, id, filterValue) => {
         return rows.filter(row => {
           const rowValue = row.values[id]
           return rowValue !== undefined
             ? String(rowValue)
-                .toLowerCase()
-                .startsWith(String(filterValue).toLowerCase())
+              .toLowerCase()
+              .startsWith(String(filterValue).toLowerCase())
             : true
         })
       },
@@ -279,73 +279,73 @@ const Table = ({ columns, data }) => {
     usePagination
   )
 
-    return (
-      <>
-        <table {...getTableProps()}>
-          <thead>
-            {headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
-                  <th {...column.getHeaderProps()} >{column.render('Header')} <div>{column.canFilter ? column.render('Filter'): null}</div></th>
-                ))}
+  return (
+    <>
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <th {...column.getHeaderProps()} >{column.render('Header')} <div>{column.canFilter ? column.render('Filter') : null}</div></th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {page.map((row, i) => {
+            prepareRow(row)
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map(cell => {
+                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                })}
               </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {page.map((row, i) => {
-              prepareRow(row)
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map(cell => {
-                    return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  })}
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-        <div className="pagination"> 
-          <ButtonTbl onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-            {'<<'}
-          </ButtonTbl>{' '}
-          <ButtonTbl onClick={() => previousPage()} disabled={!canPreviousPage}>
-            {'<'}
-          </ButtonTbl>{' '}
-          <ButtonTbl onClick={() => nextPage()} disabled={!canNextPage}>
-            {'>'}
-          </ButtonTbl>{' '}
-          <ButtonTbl onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-            {'>>'}
-          </ButtonTbl>{' '}
-          <span style={{ marginLeft: '10px' }}>
-            Página{' '}
-            <strong>
-              {pageIndex + 1} de {pageOptions.length}
-            </strong>{' '}
-          </span>{' '}
-          <select
-            style={{ marginLeft: '10px' , borderRadius: '5px' }} 
-            value={pageSize}
-            onChange={e => {
-              setPageSize(Number(e.target.value))
-            }}
-          >
-            {[10, 20, 30, 40, 50].map(pageSize => (
-              <option key={pageSize} value={pageSize}>
-                Mostrar {pageSize}
-              </option>
-            ))}
-          </select>
-        </div>
-      </>
-    )
-  }
-  
+            )
+          })}
+        </tbody>
+      </table>
+      <div className="pagination">
+        <ButtonTbl onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {'<<'}
+        </ButtonTbl>{' '}
+        <ButtonTbl onClick={() => previousPage()} disabled={!canPreviousPage}>
+          {'<'}
+        </ButtonTbl>{' '}
+        <ButtonTbl onClick={() => nextPage()} disabled={!canNextPage}>
+          {'>'}
+        </ButtonTbl>{' '}
+        <ButtonTbl onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {'>>'}
+        </ButtonTbl>{' '}
+        <span style={{ marginLeft: '10px' }}>
+          Página{' '}
+          <strong>
+            {pageIndex + 1} de {pageOptions.length}
+          </strong>{' '}
+        </span>{' '}
+        <select
+          style={{ marginLeft: '10px', borderRadius: '5px' }}
+          value={pageSize}
+          onChange={e => {
+            setPageSize(Number(e.target.value))
+          }}
+        >
+          {[10, 20, 30, 40, 50].map(pageSize => (
+            <option key={pageSize} value={pageSize}>
+              Mostrar {pageSize}
+            </option>
+          ))}
+        </select>
+      </div>
+    </>
+  )
+}
+
 
 const columns = [
   {
-    Header: 'ID Evaluación',
-    accessor: 'idE',
+    Header: 'ID Cotización',
+    accessor: 'idC',
     filter: 'fuzzyText',
   },
   {
@@ -366,7 +366,7 @@ const columns = [
     filter: dateBetweenFilterFn,
   },
   {
-    Header: 'Tipo de Evaluación',
+    Header: 'Tipo de Cotización',
     accessor: 'tipoE',
     Filter: SelectColumnFilter,
     filter: 'includes',
@@ -380,200 +380,200 @@ const columns = [
 
 const data = [
   {
-    idE: 1,
-    nombre: 'Evaluación A',
+    idC: 1,
+    nombre: 'Cotización A',
     estado: 'Activa',
     fecha: '23/11/2022',
-    tipoE: 'Tipo 1',
+    tipoC: 'Tipo 1',
     detalle: 'Ver más',
   },
   {
-    idE: 2,
-    nombre: 'Evaluación B',
+    idC: 2,
+    nombre: 'Cotización B',
     estado: 'Inactiva',
     fecha: '23/11/2022',
     tipoE: 'Tipo 2',
     detalle: 'Ver más',
   },
   {
-    idE: 3,
-    nombre: 'Evaluación C',
+    idC: 3,
+    nombre: 'Cotización C',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 1',
     detalle: 'Ver más',
   },
   {
-    idE: 4,
-    nombre: 'Evaluación D',
+    idC: 4,
+    nombre: 'Cotización D',
     estado: 'Inactiva',
     fecha: '23/11/2022',
     tipoE: 'Tipo 3',
     detalle: 'Ver más',
   },
   {
-    idE: 5,
-    nombre: 'Evaluación E',
+    idC: 5,
+    nombre: 'Cotización E',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 2',
     detalle: 'Ver más',
   },
   {
-    idE: 6,
-    nombre: 'Evaluación A',
+    idC: 6,
+    nombre: 'Cotización A',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 1',
     detalle: 'Ver más',
   },
   {
-    idE: 7,
-    nombre: 'Evaluación B',
+    idC: 7,
+    nombre: 'Cotización B',
     estado: 'Inactiva',
     fecha: '23/11/2022',
     tipoE: 'Tipo 2',
     detalle: 'Ver más',
   },
   {
-    idE: 8,
-    nombre: 'Evaluación C',
+    idC: 8,
+    nombre: 'Cotización C',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 1',
     detalle: 'Ver más',
   },
   {
-    idE: 9,
-    nombre: 'Evaluación D',
-    estado: 'Inactiva',
-    fecha: '23/11/2022',
-    tipoE: 'Tipo 3',
-    detalle: 'Ver más',
-  },
-  {
-    idE: 10,
-    nombre: 'Evaluación E',
-    estado: 'Activa',
-    fecha: '23/11/2022',
-    tipoE: 'Tipo 2',
-    detalle: 'Ver más',
-  },
-  {
-    idE: 11,
-    nombre: 'Evaluación A',
-    estado: 'Activa',
-    fecha: '23/11/2022',
-    tipoE: 'Tipo 1',
-    detalle: 'Ver más',
-  },
-  {
-    idE: 12,
-    nombre: 'Evaluación B',
-    estado: 'Inactiva',
-    fecha: '23/11/2022',
-    tipoE: 'Tipo 2',
-    detalle: 'Ver más',
-  },
-  {
-    idE: 13,
-    nombre: 'Evaluación C',
-    estado: 'Activa',
-    fecha: '23/11/2022',
-    tipoE: 'Tipo 1',
-    detalle: 'Ver más',
-  },
-  {
-    idE: 14,
-    nombre: 'Evaluación D',
+    idC: 9,
+    nombre: 'Cotización D',
     estado: 'Inactiva',
     fecha: '23/11/2022',
     tipoE: 'Tipo 3',
     detalle: 'Ver más',
   },
   {
-    idE: 15,
-    nombre: 'Evaluación E',
+    idC: 10,
+    nombre: 'Cotización E',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 2',
     detalle: 'Ver más',
   },
   {
-    idE: 16,
-    nombre: 'Evaluación A',
+    idC: 11,
+    nombre: 'Cotización A',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 1',
     detalle: 'Ver más',
   },
   {
-    idE: 17,
-    nombre: 'Evaluación B',
+    idC: 12,
+    nombre: 'Cotización B',
     estado: 'Inactiva',
     fecha: '23/11/2022',
     tipoE: 'Tipo 2',
     detalle: 'Ver más',
   },
   {
-    idE: 18,
-    nombre: 'Evaluación C',
+    idC: 13,
+    nombre: 'Cotización C',
+    estado: 'Activa',
+    fecha: '23/11/2022',
+    tipoE: 'Tipo 1',
+    detalle: 'Ver más',
+  },
+  {
+    idC: 14,
+    nombre: 'Cotización D',
+    estado: 'Inactiva',
+    fecha: '23/11/2022',
+    tipoE: 'Tipo 3',
+    detalle: 'Ver más',
+  },
+  {
+    idC: 15,
+    nombre: 'Cotización E',
+    estado: 'Activa',
+    fecha: '23/11/2022',
+    tipoE: 'Tipo 2',
+    detalle: 'Ver más',
+  },
+  {
+    idC: 16,
+    nombre: 'Cotización A',
+    estado: 'Activa',
+    fecha: '23/11/2022',
+    tipoE: 'Tipo 1',
+    detalle: 'Ver más',
+  },
+  {
+    idC: 17,
+    nombre: 'Cotización B',
+    estado: 'Inactiva',
+    fecha: '23/11/2022',
+    tipoE: 'Tipo 2',
+    detalle: 'Ver más',
+  },
+  {
+    idC: 18,
+    nombre: 'Cotización C',
     estado: 'Activa',
     fecha: '13/10/2022',
     tipoE: 'Tipo 1',
     detalle: 'Ver más',
   },
   {
-    idE: 19,
-    nombre: 'Evaluación D',
+    idC: 19,
+    nombre: 'Cotización D',
     estado: 'Inactiva',
     fecha: '13/10/2022',
     tipoE: 'Tipo 3',
     detalle: 'Ver más',
   },
   {
-    idE: 20,
-    nombre: 'Evaluación E',
+    idC: 20,
+    nombre: 'Cotización E',
     estado: 'Activa',
     fecha: '13/10/2022',
     tipoE: 'Tipo 2',
     detalle: 'Ver más',
   },
   {
-    idE: 21,
-    nombre: 'Evaluación A',
+    idC: 21,
+    nombre: 'Cotización A',
     estado: 'Activa',
     fecha: '13/10/2022',
     tipoE: 'Tipo 1',
     detalle: 'Ver más',
   },
   {
-    idE: 22,
-    nombre: 'Evaluación B',
+    idC: 22,
+    nombre: 'Cotización B',
     estado: 'Inactiva',
     fecha: '13/10/2022',
     tipoE: 'Tipo 2',
     detalle: 'Ver más',
   },
   {
-    idE: 23,
-    nombre: 'Evaluación C',
+    idC: 23,
+    nombre: 'Cotización C',
     estado: 'Activa',
     fecha: '13/10/2022',
     tipoE: 'Tipo 1',
     detalle: 'Ver más',
   },
   {
-    idE: 24,
-    nombre: 'Evaluación D',
+    idC: 24,
+    nombre: 'Cotización D',
     estado: 'Inactiva',
     fecha: '13/10/2022',
     tipoE: 'Tipo 3',
     detalle: 'Ver más',
   },
   {
-    idE: 25,
-    nombre: 'Evaluación E',
+    idC: 25,
+    nombre: 'Cotización E',
     estado: 'Activa',
     fecha: '13/10/2022',
     tipoE: 'Tipo 2',
@@ -581,21 +581,21 @@ const data = [
   },
 ];
 
-export function Evaluacion() {
+export function Cotizacion() {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
     <Fragment>
       <div className='container'>
         <Navbar />
+        <div>
+          <Title>Cotizaciones</Title>
           <div>
-            <Title>Evaluaciones</Title>
-            <div>
-              <Button style={{ marginRight: '40px' }}>Crear Evaluación</Button>
-              <Button>Tipos de Evaluación</Button>
-            </div>
-            <div style={{ display: 'flex' }}>
-            <Styles> 
+            <Button style={{ marginRight: '40px' }}>Crear Cotización</Button>
+            <Button>Tipos de Cotización</Button>
+          </div>
+          <div style={{ display: 'flex' }}>
+            <Styles>
               <Table columns={columns} data={data} />
             </Styles>
           </div>
@@ -605,4 +605,4 @@ export function Evaluacion() {
   );
 }
 
-export default Evaluacion;
+export default Cotizacion;

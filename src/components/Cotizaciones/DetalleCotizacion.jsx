@@ -2,21 +2,21 @@ import React, { useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '../Navbar/Navbar';
 import styled  from 'styled-components';
-import './DetalleEvaluacion.css';
+import './DetalleCotizacion.css';
 
 import { BsFillPencilFill } from 'react-icons/bs';
 import { RiDeleteBinLine } from 'react-icons/ri';
 
-export const DetalleEvaluacion = () => {
+export const DetalleCotizacion = () => {
     let navigate = useNavigate();
-    const gotoModificarEvaluacion = () => { navigate('/modficarEvaluacion'); }
+    const gotoModificarCotizacion = () => { navigate('/modficarCotizacion'); }
 
 
-    const [idevaluacion, setidEvaluacion] = useState('');
+    const [idCotizacion, setidCotizacion] = useState('');
     const [nombre, setNombre] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [fechaEjecucion, setFechaEjecucion] = useState('');
-    const [tipoEvalaucion, setTipoEvaluacion] = useState('');
+    const [tipoCotizacion, setTipoCotizacion] = useState('');
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [estado, setEstado] = useState('');
     const [costo, setCosto] = useState('');
@@ -33,11 +33,11 @@ export const DetalleEvaluacion = () => {
     const handleSearch = async () => {
         //Buscamos la informacion del backend
         
-        setidEvaluacion('E1231')
-        setNombre('Evaluacion para el Ministerio de salud')
-        setDescripcion('Evaluacion de accesibilidad')
+        setidCotizacion('E1231')
+        setNombre('Cotizacion para el Ministerio de salud')
+        setDescripcion('Cotizacion de accesibilidad')
         setFechaEjecucion('20/09/2023')
-        setTipoEvaluacion('Automatica')
+        setTipoCotizacion('Automatica')
         
         setEstado('En proceso')
         setCosto(230000)
@@ -67,12 +67,12 @@ export const DetalleEvaluacion = () => {
                         <Title>{nombre}</Title>
                     </div>
                     <div style={{ marginBottom: '30px' }}>
-                        <label  for="idEvlabel" class="form-label">ID Evaluación:</label>
-                        <label  style={{ marginLeft: '130px' }}for="idevaluacion" class="form-label">{idevaluacion}</label>
+                        <label  for="idColabel" class="form-label">ID Cotización:</label>
+                        <label  style={{ marginLeft: '130px' }}for="idCotizacion" class="form-label">{idCotizacion}</label>
                     </div>
                     <div style={{ marginBottom: '30px' }}>
                         <label for="namelabel" class="form-label">Nombre:</label>
-                        <label style={{ marginLeft: '180px' }} for="nameevaluacion" class="form-label">{nombre}</label>
+                        <label style={{ marginLeft: '180px' }} for="nameCotizacion" class="form-label">{nombre}</label>
                     </div>
                     <div style={{ marginBottom: '30px' }}>
                         <label for="descripcionLabel" class="form-label">Descripción:</label>
@@ -85,12 +85,12 @@ export const DetalleEvaluacion = () => {
                     </div>
                     
                     <div style={{ marginBottom: '30px' }}>
-                        <label for="idEvLave" class="form-label">Tipo de evaluación:</label>
-                        <label style={{ marginLeft: '90px' }} for="idevaluacion" class="form-label">{tipoEvalaucion}</label>
+                        <label for="idCoLave" class="form-label">Tipo de cotización:</label>
+                        <label style={{ marginLeft: '90px' }} for="idCotizacion" class="form-label">{tipoCotizacion}</label>
                     </div>
                     
                     <div style={{ marginBottom: '30px' }}>
-                        <label for="idEvLave" class="form-label">Documentos adjuntos: </label>
+                        <label for="idCoLave" class="form-label">Documentos adjuntos: </label>
                         <ul>
                             {archivosAdjuntos.map((archivo, index) => (
                                 <li key={index}>
@@ -103,38 +103,38 @@ export const DetalleEvaluacion = () => {
                     </div>
                     
                     <div style={{ marginBottom: '30px' }}>
-                        <label for="idEvLave" class="form-label">Estado:</label>
-                        <label style={{ marginLeft: '190px' }} for="idevaluacion" class="form-label">{estado}</label>
+                        <label for="idCoLave" class="form-label">Estado:</label>
+                        <label style={{ marginLeft: '190px' }} for="idCotizacion" class="form-label">{estado}</label>
                     </div>
                     
                     <div style={{ marginBottom: '30px' }}>
-                        <label for="idEvLave" class="form-label">Costo:</label>
-                        <label style={{ marginLeft: '200px' }} for="idevaluacion" class="form-label">{costo}</label>
+                        <label for="idCoLave" class="form-label">Costo:</label>
+                        <label style={{ marginLeft: '200px' }} for="idCotizacion" class="form-label">{costo}</label>
                     </div>
                     <div style={{ marginBottom: '30px' }}>
-                        <label for="idEvLave" class="form-label">Cédula Juridica: </label>
-                        <label style={{ marginLeft: '100px' }} for="idevaluacion" class="form-label">{cedula}</label>
+                        <label for="idCoLave" class="form-label">Cédula Juridica: </label>
+                        <label style={{ marginLeft: '100px' }} for="idCotizacion" class="form-label">{cedula}</label>
                     </div>
                     
                     <div style={{ marginBottom: '30px' }}>
-                        <label for="idEvLave" class="form-label">Nombre del cliente o entidad:</label>
-                        <label for="idevaluacion" class="form-label">{nombreCliente}</label>
+                        <label for="idCoLave" class="form-label">Nombre del cliente o entidad:</label>
+                        <label for="idCotizacion" class="form-label">{nombreCliente}</label>
                     </div>
                     
                     {nombreProyecto !== '' && (
                         <div style={{ marginBottom: '30px' }}>
-                            <label for="idEvLave" class="form-label">Proyecto asociado:</label>
-                            <label for="idevaluacion" class="form-label">{nombreProyecto}</label>
+                            <label for="idCoLave" class="form-label">Proyecto asociado:</label>
+                            <label for="idCotizacion" class="form-label">{nombreProyecto}</label>
                         </div>
                         )}
                         <div style={{ marginTop: '100px', display: 'flex' }}>
-                            <button type="submit" className="button2" onClick={gotoModificarEvaluacion}>
+                            <button type="submit" className="button2" onClick={gotoModificarCotizacion}>
                                 <BsFillPencilFill style={{
                                 fontSize: '25px',
                                 marginRight: '20px',
                                 marginLeft: '20px',
                                 color: '#12959E' // Tamaño del icono
-                                }} /> Modificar evaluación
+                                }} /> Modificar cotización
                             </button>
                             <button type="submit" className="button2">
                                 <RiDeleteBinLine style={{
@@ -142,7 +142,7 @@ export const DetalleEvaluacion = () => {
                                 marginRight: '20px',
                                 marginLeft: '20px',
                                 color: '#12959E' // Tamaño del icono
-                                }} /> Eliminar evaluación
+                                }} /> Eliminar cotización
                             </button>
                         </div>
 
