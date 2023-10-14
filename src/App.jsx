@@ -16,6 +16,10 @@ import { Funcionarios } from "./components/Funcionarios/Funcionarios";
 import { CrearFuncionarios } from "./components/Funcionarios/CrearFuncionarios";
 import { DetalleFuncionario } from "./components/Funcionarios/DetalleFuncionario";
 import { ModificarFuncionario } from "./components/Funcionarios/ModificarFuncionario";
+
+import { ReporteRendimiento } from "./components/ReportesRendimiento/ReporteRendimiento";
+import { ReporteFinanciero } from "./components/ReportesFinancieros/ReporteFinanciero";
+
 export function App() {
     return (
     <Router>
@@ -38,6 +42,9 @@ export function App() {
             <Route exact path= "/crearFuncionarios" element = {<CrearFuncionarios/>} />
             <Route exact path= "/detalleFuncionario" element = {<DetalleFuncionario/>} />
             <Route exact path= "/modificarFuncionario" element = {<ModificarFuncionario/>} />
+
+            <Route exact path= "/reportesRendimiento" element = {<ReporteRendimiento/>} />
+            <Route exact path= "/reportesFinancieros" element = {<ReporteFinanciero/>} />
             </Routes>
         </div>
     </Router>

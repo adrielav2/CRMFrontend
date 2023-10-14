@@ -9,6 +9,7 @@ import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { Navbar } from '../Navbar/Navbar';
 import './CrearEvaluacion.css';
 import Swal from 'sweetalert2';
+
 export  const CrearEvaluacion = () => {
     const [nombre, setNombre] = useState('');
     const [descripcion, setDescripcion] = useState('');
@@ -45,6 +46,7 @@ export  const CrearEvaluacion = () => {
           });
         
     }
+
     const handleSearch = async () => { 
         //Obtener infromacion existente en la base de datos
         //A esto me refiero a la tabla de los clientes
