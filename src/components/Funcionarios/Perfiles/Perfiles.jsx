@@ -6,9 +6,53 @@ import { Navbar } from '../../Navbar/Navbar';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import '../../Clientes/CSSClientes/Clientes.css'
+import { Table, columns, data, Styles } from './TablaPerfiles';  // Importa Table, columns y data desde Tabla.jsxy
 export const Perfiles = () => {
     const [id, setIdPerfil] = useState(''); //FALTA AGREGAR LA TABLA DE AHI ES DONDE SE RECOGE
-    const [perfiles, setPerfiles] = useState([[]]);//Meter los datos de los clientes ahi
+    const [perfiles, setPerfiles] =  useState([]);;//Meter los datos de los clientes ahi
+    const [deletedPerfiles, setDeletedPerfiles] = useState([]); // Almacena perfiles eliminados
+
+    const showNotification = async (event, idPerfil) => {
+      event.preventDefault();
+      // Elimina el perfil del estado de perfiles
+      const updatedPerfiles = perfiles.filter((perfil) => perfil.idPerfil !== idPerfil);
+      console.log(idPerfil)
+      setPerfiles(updatedPerfiles);
+    };
+    const handleModificarPerfil= async (event, idPerfil, nombre) => {
+      event.preventDefault();  
+      //Es para enviar informacion al backend
+      //Lo de abajo es la notificacion de que ya se creo la evalaucion
+      //Recordar en el backend poner lo de fecha de ingreso que se hace alla
+      Swal.fire({
+        title: 'Modifica perfil',
+        input: 'text',
+        inputLabel: 'Nombre del perfil',
+        inputPlaceholder: 'Ingrese el nombre del perfil',
+        inputValue: nombre, // Establece el valor inicial del input
+        showDenyButton: true,
+        confirmButtonText: 'Aceptar',
+        denyButtonText: 'Cancelar',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const nombreNuevo = result.value; // Obtén el valor del input
+      
+          if (nombreNuevo !== '') {
+            if (nombreNuevo !== nombre) {
+              // Realiza la actualización en el backend solo si el nombre cambió
+              // actualizarNombreEnBaseDeDatos(nombreNuevo);
+            }
+            Swal.fire('Se actualizó correctamente: ');
+          } else {
+            Swal.fire('Incorrecto', 'Debe ingresar un nombre válido', 'error');
+          }
+        } else if (result.isDenied) {
+          Swal.fire('Operación cancelada');
+        }
+      });
+  };
     //Esto es para enviarlo a detalles
     const handleIdPerfilChange = (event) => {
         setIdPerfil(event.target.value);
@@ -23,10 +67,30 @@ export const Perfiles = () => {
     margin-top: 25px;
     `;
     const handleSearch = async () => { 
-        //Obtener infromacion existente en la base de datos
-        //A esto me refiero recuperar los datos de los funcionarios
-        setPerfiles([[]]);
-    }; 
+      //Obtener infromacion existente en la base de datos
+      //A esto me refiero recuperar los datos de los funcionarios
+      setPerfiles( [
+          {
+            idPerfil: 1,
+            nombre: 'Evaluación A',
+            detalle: 'Ver más',
+          },
+          {
+            idPerfil: 2,
+            nombre: 'Evaluación B',
+            detalle: 'Ver más',
+          },
+          {
+            idPerfil: 3,
+            nombre: 'Evaluación C',
+            detalle: 'Ver más',
+          },
+          
+        ]);
+  }; 
+  React.useEffect(() => {
+      handleSearch()
+  }, []);
     const handleCrearPerfil= async (event) => {
         event.preventDefault();  
         //Es para enviar informacion al backend
@@ -81,6 +145,13 @@ export const Perfiles = () => {
                         Crear<br />perfil
                     </div>
                  </button>
+                 <div className="mb-3" style={{ marginTop: '70px', marginLeft: '-170px'}}>
+                <div style={{ display: 'flex' }}>
+                <Styles> 
+                  <Table columns={columns} data={perfiles} showNotification={showNotification} />
+                </Styles>
+                </div>
+            </div>
              </div>
              {/* Aqui ponemos la tabla de los funcionarios, falta por hacer */}
              
