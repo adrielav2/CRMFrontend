@@ -41,8 +41,11 @@ export const Perfiles = () => {
       
           if (nombreNuevo !== '') {
             if (nombreNuevo !== nombre) {
-              // Realiza la actualización en el backend solo si el nombre cambió
-              // actualizarNombreEnBaseDeDatos(nombreNuevo);
+              // Actualiza el nombre en la lista de perfiles en el estado
+              const updatedPerfiles = perfiles.map((perfil) =>
+                perfil.idPerfil === idPerfil ? { ...perfil, nombre: nombreNuevo } : perfil
+              );
+              setPerfiles(updatedPerfiles);
             }
             Swal.fire('Se actualizó correctamente: ');
           } else {
@@ -112,7 +115,16 @@ export const Perfiles = () => {
               const nombre = result.value; // Obtener el valor del input
               if (nombre !== '') {
                 //Enviar al backend
-                //Recuperar opcion creada
+                const nuevoPerfil = {
+                  idPerfil: 4, // Asegúrate de generar un nuevo ID si es necesario
+                  nombre: nombre,
+                };
+        
+                // Crea una copia actualizada de la lista de perfiles y agrega el nuevo perfil.
+                const updatedPerfiles = [...perfiles, nuevoPerfil];
+                
+                // Actualiza el estado con la lista de perfiles actualizada.
+                setPerfiles(updatedPerfiles);
                 Swal.fire('Se ingresó correctamente: ' + nombre);
               } else {
                 Swal.fire('Incorrecto', 'Debe ingresar el nombre', 'error');
@@ -148,7 +160,7 @@ export const Perfiles = () => {
                  <div className="mb-3" style={{ marginTop: '70px', marginLeft: '-170px'}}>
                 <div style={{ display: 'flex' }}>
                 <Styles> 
-                  <Table columns={columns} data={perfiles} showNotification={showNotification} />
+                  <Table columns={columns} data={perfiles} showNotification={showNotification} handleModificarPerfil={handleModificarPerfil}/>
                 </Styles>
                 </div>
             </div>

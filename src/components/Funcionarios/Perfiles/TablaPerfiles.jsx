@@ -224,12 +224,12 @@ export function DateRangeColumnFilter({
   );
 }
 // Define una función de filtro de texto difuso
-function fuzzyTextFilterFn(rows, id, filterValue) {
+function fuzzyTextFilterFn(rows, id, filterValue,) {
   return matchSorter(rows, filterValue, { keys: [row => row.values[id]] })
 }
 fuzzyTextFilterFn.autoRemove = val => !val
 // Define un componente de tabla
-export const Table = ({ columns, data , showNotification }) => {
+export const Table = ({ columns, data , showNotification, handleModificarPerfil }) => {
     const navigate = useNavigate(); // Usar useNavigate aquí
 
     const gotoDetalle = (idPerfil) => {
@@ -315,11 +315,14 @@ export const Table = ({ columns, data , showNotification }) => {
                    if (cell.column.id === 'detalle') {
                     // Renderiza el icono "Editar" (pencil) y asocia la acción de navegación
                     const idPerfil = row.original.idPerfil;
+                    const nombre = row.original.nombre;
                     const editIcon = (
                       <BsFillPencilFill
                         style={{ cursor: 'pointer', color: '#12959E' }}
-                        onClick={() => gotoDetalle(idPerfil)}
-                      />
+                        onClick={(event) => {
+                          event.preventDefault(); // Prevenir la recarga de la página
+                          handleModificarPerfil(event, row.original.idPerfil, row.original.nombre)}}
+                        />
                     );
     
                     // Renderiza el icono "Eliminar" (delete) y asocia la acción de notificación
@@ -327,9 +330,11 @@ export const Table = ({ columns, data , showNotification }) => {
                     const deleteIcon = (
                       <RiDeleteBinLine
                         style={{ cursor: 'pointer', color: 'red' }}
-                        onClick={() =>  showNotification(row.original.idPerfil)}/>
+                        onClick={(event) => {
+                          event.preventDefault();
+                         showNotification(event, row.original.idPerfil)}}/>
                       );
-                      console.log(idPerfil)
+                      console.log(idPerfil, nombre)
                     // Retorna ambos iconos dentro de un div
                     return (
                       <td {...cell.getCellProps()}>
