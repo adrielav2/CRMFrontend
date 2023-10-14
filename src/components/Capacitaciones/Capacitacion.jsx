@@ -95,7 +95,7 @@ const Styles = styled.div`
     padding: 0.5rem;
   }
 `
-// Define a default UI for filtering
+// Filtro default para buscar en columna
 function DefaultColumnFilter({
   column: { filterValue, preFilteredRows, setFilter },
 }) {
@@ -112,6 +112,7 @@ function DefaultColumnFilter({
   )
 }
 
+//filtro con opciones desplegables para columna
 function SelectColumnFilter({
   column: { filterValue, setFilter, preFilteredRows, id },
 }) {
@@ -143,6 +144,7 @@ function SelectColumnFilter({
   )
 }
 
+//Función auxiliar para saber el rango entre dos fechas
 export function dateBetweenFilterFn(rows, id, filterValues) {
   const sd = filterValues[0] ? new Date(filterValues[0]) : undefined;
   const ed = filterValues[1] ? new Date(filterValues[1]) : undefined;
@@ -170,6 +172,7 @@ export function dateBetweenFilterFn(rows, id, filterValues) {
   }
 }
 
+//filtro para rango de fechas en columna
 export function DateRangeColumnFilter({
   column: { filterValue = [], preFilteredRows, setFilter, id }
 }) {
@@ -218,6 +221,8 @@ export function DateRangeColumnFilter({
     </div>
   );
 }
+
+//Uso de librería fuzzy para buscar en columnas
 function fuzzyTextFilterFn(rows, id, filterValue) {
   return matchSorter(rows, filterValue, { keys: [row => row.values[id]] })
 }
@@ -226,10 +231,8 @@ fuzzyTextFilterFn.autoRemove = val => !val
 const Table = ({ columns, data }) => {
   const filterTypes = React.useMemo(
     () => ({
-      // Add a new fuzzyTextFilterFn filter type.
+      // Se añade la función de fuzzy.
       fuzzyText: fuzzyTextFilterFn,
-      // Or, override the default text filter to use
-      // "startWith"
       text: (rows, id, filterValue) => {
         return rows.filter(row => {
           const rowValue = row.values[id]
@@ -245,7 +248,6 @@ const Table = ({ columns, data }) => {
   )
   const defaultColumn = React.useMemo(
     () => ({
-      // Let's set up our default Filter UI
       Filter: DefaultColumnFilter,
     }),
     []
@@ -344,7 +346,7 @@ const Table = ({ columns, data }) => {
 
 const columns = [
   {
-    Header: 'ID Evaluación',
+    Header: 'ID Capacitación',
     accessor: 'idE',
     filter: 'fuzzyText',
   },
@@ -366,7 +368,7 @@ const columns = [
     filter: dateBetweenFilterFn,
   },
   {
-    Header: 'Tipo de Evaluación',
+    Header: 'Tipo de Capacitación',
     accessor: 'tipoE',
     Filter: SelectColumnFilter,
     filter: 'includes',
@@ -381,7 +383,7 @@ const columns = [
 const data = [
   {
     idE: 1,
-    nombre: 'Evaluación A',
+    nombre: 'Capacitación A',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 1',
@@ -389,7 +391,7 @@ const data = [
   },
   {
     idE: 2,
-    nombre: 'Evaluación B',
+    nombre: 'Capacitación B',
     estado: 'Inactiva',
     fecha: '23/11/2022',
     tipoE: 'Tipo 2',
@@ -397,7 +399,7 @@ const data = [
   },
   {
     idE: 3,
-    nombre: 'Evaluación C',
+    nombre: 'Capacitación C',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 1',
@@ -405,7 +407,7 @@ const data = [
   },
   {
     idE: 4,
-    nombre: 'Evaluación D',
+    nombre: 'Capacitación D',
     estado: 'Inactiva',
     fecha: '23/11/2022',
     tipoE: 'Tipo 3',
@@ -413,7 +415,7 @@ const data = [
   },
   {
     idE: 5,
-    nombre: 'Evaluación E',
+    nombre: 'Capacitación E',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 2',
@@ -421,7 +423,7 @@ const data = [
   },
   {
     idE: 6,
-    nombre: 'Evaluación A',
+    nombre: 'Capacitación A',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 1',
@@ -429,7 +431,7 @@ const data = [
   },
   {
     idE: 7,
-    nombre: 'Evaluación B',
+    nombre: 'Capacitación B',
     estado: 'Inactiva',
     fecha: '23/11/2022',
     tipoE: 'Tipo 2',
@@ -437,7 +439,7 @@ const data = [
   },
   {
     idE: 8,
-    nombre: 'Evaluación C',
+    nombre: 'Capacitación C',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 1',
@@ -445,7 +447,7 @@ const data = [
   },
   {
     idE: 9,
-    nombre: 'Evaluación D',
+    nombre: 'Capacitación D',
     estado: 'Inactiva',
     fecha: '23/11/2022',
     tipoE: 'Tipo 3',
@@ -453,7 +455,7 @@ const data = [
   },
   {
     idE: 10,
-    nombre: 'Evaluación E',
+    nombre: 'Capacitación E',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 2',
@@ -461,7 +463,7 @@ const data = [
   },
   {
     idE: 11,
-    nombre: 'Evaluación A',
+    nombre: 'Capacitación A',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 1',
@@ -469,7 +471,7 @@ const data = [
   },
   {
     idE: 12,
-    nombre: 'Evaluación B',
+    nombre: 'Capacitación B',
     estado: 'Inactiva',
     fecha: '23/11/2022',
     tipoE: 'Tipo 2',
@@ -477,7 +479,7 @@ const data = [
   },
   {
     idE: 13,
-    nombre: 'Evaluación C',
+    nombre: 'Capacitación C',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 1',
@@ -485,7 +487,7 @@ const data = [
   },
   {
     idE: 14,
-    nombre: 'Evaluación D',
+    nombre: 'Capacitación D',
     estado: 'Inactiva',
     fecha: '23/11/2022',
     tipoE: 'Tipo 3',
@@ -493,7 +495,7 @@ const data = [
   },
   {
     idE: 15,
-    nombre: 'Evaluación E',
+    nombre: 'Capacitación E',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 2',
@@ -501,7 +503,7 @@ const data = [
   },
   {
     idE: 16,
-    nombre: 'Evaluación A',
+    nombre: 'Capacitación A',
     estado: 'Activa',
     fecha: '23/11/2022',
     tipoE: 'Tipo 1',
@@ -509,7 +511,7 @@ const data = [
   },
   {
     idE: 17,
-    nombre: 'Evaluación B',
+    nombre: 'Capacitación B',
     estado: 'Inactiva',
     fecha: '23/11/2022',
     tipoE: 'Tipo 2',
@@ -517,7 +519,7 @@ const data = [
   },
   {
     idE: 18,
-    nombre: 'Evaluación C',
+    nombre: 'Capacitación C',
     estado: 'Activa',
     fecha: '13/10/2022',
     tipoE: 'Tipo 1',
@@ -525,7 +527,7 @@ const data = [
   },
   {
     idE: 19,
-    nombre: 'Evaluación D',
+    nombre: 'Capacitación D',
     estado: 'Inactiva',
     fecha: '13/10/2022',
     tipoE: 'Tipo 3',
@@ -533,7 +535,7 @@ const data = [
   },
   {
     idE: 20,
-    nombre: 'Evaluación E',
+    nombre: 'Capacitación E',
     estado: 'Activa',
     fecha: '13/10/2022',
     tipoE: 'Tipo 2',
@@ -541,7 +543,7 @@ const data = [
   },
   {
     idE: 21,
-    nombre: 'Evaluación A',
+    nombre: 'Capacitación A',
     estado: 'Activa',
     fecha: '13/10/2022',
     tipoE: 'Tipo 1',
@@ -549,7 +551,7 @@ const data = [
   },
   {
     idE: 22,
-    nombre: 'Evaluación B',
+    nombre: 'Capacitación B',
     estado: 'Inactiva',
     fecha: '13/10/2022',
     tipoE: 'Tipo 2',
@@ -557,7 +559,7 @@ const data = [
   },
   {
     idE: 23,
-    nombre: 'Evaluación C',
+    nombre: 'Capacitación C',
     estado: 'Activa',
     fecha: '13/10/2022',
     tipoE: 'Tipo 1',
@@ -565,7 +567,7 @@ const data = [
   },
   {
     idE: 24,
-    nombre: 'Evaluación D',
+    nombre: 'Capacitación D',
     estado: 'Inactiva',
     fecha: '13/10/2022',
     tipoE: 'Tipo 3',
@@ -573,7 +575,7 @@ const data = [
   },
   {
     idE: 25,
-    nombre: 'Evaluación E',
+    nombre: 'Capacitación E',
     estado: 'Activa',
     fecha: '13/10/2022',
     tipoE: 'Tipo 2',
@@ -581,7 +583,7 @@ const data = [
   },
 ];
 
-export function Evaluacion() {
+export function Capacitacion() {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
@@ -589,10 +591,10 @@ export function Evaluacion() {
       <div className='container'>
         <Navbar />
           <div>
-            <Title>Evaluaciones</Title>
+            <Title>Capacitaciones</Title>
             <div>
-              <Button style={{ marginRight: '40px' }}>Crear Evaluación</Button>
-              <Button>Tipos de Evaluación</Button>
+              <Button style={{ marginRight: '40px' }}>Crear Capacitación</Button>
+              <Button>Tipos de Capacitación</Button>
             </div>
             <div style={{ display: 'flex' }}>
             <Styles> 
@@ -605,4 +607,4 @@ export function Evaluacion() {
   );
 }
 
-export default Evaluacion;
+export default Capacitacion;
